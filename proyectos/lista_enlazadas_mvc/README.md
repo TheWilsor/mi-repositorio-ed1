@@ -1,24 +1,27 @@
-# Gestor de Tareas con Lista Enlazada (TDA) & Tkinter
+# Gestor de Tareas con Lista Enlazada Simple (TDA) & Tkinter
 
-Este proyecto es una aplicación de escritorio desarrollada en **Python** para la gestión de tareas. Aplica el concepto de **Tipo de Dato Abstracto (TDA)** mediante una **Lista Enlazada Simple** como estructura de datos dinámica subyacente y utiliza el patrón arquitectónico **MVC (Modelo-Vista-Controlador)** con **Tkinter** para la interfaz gráfica.
+Este proyecto es una aplicación de escritorio desarrollada en **Python** para la gestión dinámica de tareas. Aplica el concepto de **Tipo de Dato Abstracto (TDA)** mediante una **Lista Enlazada Simple** como estructura de datos subyacente y utiliza el patrón arquitectónico **MVC (Modelo-Vista-Controlador)** con **Tkinter** para organizar la interfaz gráfica en 3 paneles clasificados.
 
 ---
 
-##  Contexto del Proyecto
+## 📌 Contexto & Lógica del Proyecto
 
 ### Estructura de Datos (TDA)
-- **Nodo**: Contiene los atributos `descripcion` (cadena de texto), `estado` (`'pendiente'` o `'completada'`) y `siguiente` (puntero al nodo contiguo).
-- **Lista Enlazada**: Controla la inserción y el recorrido dinámico de nodos.
+- **Nodo**: Contiene los atributos `descripcion` (cadena de texto), `estado` (`'pendiente'` o `'completada'`) y `siguiente` (puntero de enlace al nodo contiguo).
+- **Lista Enlazada**: Controla la inserción secuencial buscando el primer puntero libre y gestiona la desvinculación/reconexión directa de punteros al eliminar.
 
 ### Funcionalidades
-1. **Agregar Tarea**: Permite añadir elementos al inicio o al final de la lista.
-2. **Marcar como Completada**: Modifica el estado de la tarea seleccionada.
-3. **Eliminar Tarea**: Desvincula y remueve el nodo de la lista enlazada.
-4. **Mostrar Tareas**: Renderiza la lista completa en la interfaz visual.
+1. **Agregar Tarea (Inserción por Punteros)**: Consulta si la cabeza está libre; si no, recorre la cadena hasta encontrar el último puntero libre (`siguiente is None`) e inserta el nuevo nodo al final.
+2. **Marcar como Completada**: Modifica el atributo `estado` del nodo recorrido en memoria y actualiza la visualización.
+3. **Eliminar Tarea (Desvinculación)**: Recorre secuencialmente la lista y reconecta los punteros del nodo anterior directamente con el nodo posterior, dejando el nodo seleccionado desconectado de la lista.
+4. **Visualización Clasificada en 3 Paneles**: Recorre la lista enlazada unificada y despliega la información numerada automáticamente en tres secciones independientes:
+   - **1. Todas las Tareas** (Muestra el estado `[ ]` o `[✓]`)
+   - **2. Pendientes**
+   - **3. Completadas**
 
 ---
 
-##  Stack Tecnológico & Arquitectura
+## 🛠️ Stack Tecnológico & Arquitectura
 
 - **Lenguaje:** Python 3.x
 - **Interfaz Gráfica:** Tkinter (Biblioteca estándar)
@@ -29,19 +32,19 @@ Este proyecto es una aplicación de escritorio desarrollada en **Python** para l
 lista_enlazadas_mvc/
 │
 ├── models/
-│   ├── __init__.py
-│   ├── nodo.py             # Clase Nodo
-│   └── lista_enlazada.py   # TDA Lista Enlazada
+│   ├── __init__.py
+│   ├── nodo.py             # Clase Nodo
+│   └── lista_enlazada.py   # TDA Lista Enlazada
 │
 ├── controllers/
-│   ├── __init__.py
-│   └── controlador_tareas.py # Lógica de interacción y manejo de errores
+│   ├── __init__.py
+│   └── controlador_tareas.py # Lógica de interacción y manejo de errores
 │
 ├── views/
-│   ├── __init__.py
-│   └── vista_tareas.py     # Interfaz visual con Tkinter
+│   ├── __init__.py
+│   └── vista_tareas.py     # Interfaz visual con Tkinter
 │
-├── main.py                 # Punto de entrada
+├── main.py                 # Punto de entrada
 └── README.md
 
 ## RUN Ejecución del Proyecto
