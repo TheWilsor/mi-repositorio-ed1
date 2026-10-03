@@ -1,0 +1,23 @@
+===============================================================================
+LICENCIA DE USO Y DERECHOS DE AUTOR
+SISTEMA DE ATENCIÓN DE TICKETS BANCARIOS (ESTILO BNB)
+===============================================================================
+
+Copyright (c) 2026 Wilson Leonel Mojica Cuellar.
+Todos los derechos reservados.
+
+Por la presente se concede permiso y licencia de uso académico y operativo para 
+el software "Sistema de Atención de Tickets Bancarios", desarrollado por 
+Wilson Leonel Mojica Cuellar.
+
+CONDICIONES DE USO Y FUNCIONAMIENTO:
+1. TITULARIDAD: La propiedad intelectual, estructura lógica (TDA Lista Enlazada),
+   código fuente e interfaz gráfica pertenecen exclusivamente al autor.
+2. USO PERMITIDO: Se autoriza la ejecución, despliegue y presentación del 
+   sistema para fines de evaluación universitaria y demostraciones operativas.
+3. LIMITACIÓN DE RESPONSABILIDAD: El software se proporciona "tal cual", sin 
+   garantías explícitas o implícitas sobre su uso en entornos de producción 
+   bancaria real sin previa autorización del autor.
+
+Desarrollado en Santa Cruz, Bolivia.
+===============================================================================
