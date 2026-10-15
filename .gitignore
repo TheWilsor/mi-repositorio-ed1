@@ -1,0 +1,17 @@
+# Archivos de caché de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos de compilación (PyInstaller)
+build/
+dist/
+*.spec
+*.exe
+
+# Entornos virtuales y configuraciones locales
+venv/
+.env
+.vscode/
+.continue/
