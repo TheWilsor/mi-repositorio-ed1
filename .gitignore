@@ -1,17 +1,35 @@
-# Archivos de caché de Python
+# Entornos virtuales y caché de Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Archivos de compilación (PyInstaller)
-build/
-dist/
-*.spec
-*.exe
-
-# Entornos virtuales y configuraciones locales
+*.py[cod]
+*$py.class
 venv/
-.env
-.vscode/
-.continue/
+env/
+.venv/
+
+# Configuración local y sensible (para que no se suban tus rutas reales)
+config.json
+
+# Bóveda de Obsidian (¡Nunca debe subirse al repositorio de código!)
+D:/para programar/MiBovedaObsidian/
+MiBovedaObsidian/
+
+# Directorios de compilación o binarios locales
+dist/
+build/
+*.spec
+Output/
+
+# Archivos del sistema operativo
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Abismo solo en el repositorio de código (para evitar subir archivos grandes o irrelevantes)
+core/
+ObsidianVault/
+skills/
+ui/
+app_ui.py
+fondo.jpg
+config.json
+abismo_workflow.json
