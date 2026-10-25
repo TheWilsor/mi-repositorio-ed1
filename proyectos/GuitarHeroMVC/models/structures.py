@@ -1,46 +1,42 @@
-from typing import Optional, Generic, TypeVar, Any, Callable
+"""Estructuras de datos enlazadas implementadas sin contenedores nativos."""
 
-# Definición del tipo de dato genérico T
-T = TypeVar('T')
+from __future__ import annotations
+
+from typing import Generic, Iterator, Optional, TypeVar
+
+T = TypeVar("T")
+
 
 class Node(Generic[T]):
-    """
-    Clase que representa un nodo en una lista enlazada.
-    Cada nodo tiene un dato, un puntero al siguiente nodo y un puntero al nodo anterior.
-    """
+    """Nodo con dato y referencias explícitas al siguiente y anterior."""
 
-    def __init__(self, data: T, next_node: Optional['Node'] = None, prev_node: Optional['Node'] = None):
-        self.data = data
-        self.next = next_node
-        self.prev = prev_node
+    def __init__(
+        self,
+        data: T,
+        next: Optional[Node[T]] = None,
+        prev: Optional[Node[T]] = None,
+    ) -> None:
+        self.data: T = data
+        self.next: Optional[Node[T]] = next
+        self.prev: Optional[Node[T]] = prev
+
 
 class DoublyLinkedList(Generic[T]):
-    """
-    Clase que representa una lista enlazada doblemente enlazada.
-    Permite la inserción y eliminación de nodos en O(1) en extremos y recorrido bidireccional.
-    """
+    """Lista doblemente enlazada con inserción y extracción eficiente."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.head: Optional[Node[T]] = None
         self.tail: Optional[Node[T]] = None
         self.size: int = 0
 
     def is_empty(self) -> bool:
-        """
-        Método que verifica si la lista enlazada está vacía.
-        Returns:
-            bool: True si la lista está vacía, False en caso contrario.
-        """
+        """Indica si la estructura no contiene nodos."""
         return self.head is None
 
     def append(self, data: T) -> None:
-        """
-        Método que agrega un nuevo nodo al final de la lista enlazada.
-        Args:
-            data (T): El dato que se desea agregar al nodo.
-        """
+        """Agrega un dato al final en tiempo O(1)."""
         new_node = Node(data, prev=self.tail)
-        if self.is_empty():
+        if self.tail is None:
             self.head = new_node
         else:
             self.tail.next = new_node
@@ -48,48 +44,59 @@ class DoublyLinkedList(Generic[T]):
         self.size += 1
 
     def prepend(self, data: T) -> None:
-        """
-        Método que agrega un nuevo nodo al principio de la lista enlazada.
-        Args:
-            data (T): El dato que se desea agregar al nodo.
-        """
+        """Agrega un dato al inicio en tiempo O(1)."""
         new_node = Node(data, next=self.head)
-        if self.is_empty():
+        if self.head is None:
             self.tail = new_node
         else:
             self.head.prev = new_node
         self.head = new_node
         self.size += 1
 
-    def delete(self, data: T) -> None:
-        """
-        Método que elimina el primer nodo que contenga el dato especificado.
-        Args:
-            data (T): El dato que se desea eliminar.
-        """
+    def pop_front(self) -> Optional[T]:
+        """Retira y devuelve el primer dato, o None si está vacía."""
+        if self.head is None:
+            return None
+
+        node = self.head
+        self.head = node.next
+        if self.head is None:
+            self.tail = None
+        else:
+            self.head.prev = None
+        node.next = None
+        node.prev = None
+        self.size -= 1
+        return node.data
+
+    def remove(self, data: T) -> bool:
+        """Elimina la primera coincidencia y comunica si la encontró."""
         current = self.head
         while current is not None:
             if current.data == data:
-                if current.prev:
-                    current.prev.next = current.next
-                else:
+                if current.prev is None:
                     self.head = current.next
-                if current.next:
-                    current.next.prev = current.prev
                 else:
+                    current.prev.next = current.next
+
+                if current.next is None:
                     self.tail = current.prev
+                else:
+                    current.next.prev = current.prev
+
+                current.next = None
+                current.prev = None
                 self.size -= 1
-                return
+                return True
             current = current.next
+        return False
+
+    def delete(self, data: T) -> bool:
+        """Alias compatible para eliminar la primera coincidencia."""
+        return self.remove(data)
 
     def search(self, data: T) -> bool:
-        """
-        Método que verifica si un dato está presente en la lista enlazada.
-        Args:
-            data (T): El dato que se desea buscar.
-        Returns:
-            bool: True si el dato está presente, False en caso contrario.
-        """
+        """Busca un dato recorriendo los nodos enlazados."""
         current = self.head
         while current is not None:
             if current.data == data:
@@ -98,64 +105,45 @@ class DoublyLinkedList(Generic[T]):
         return False
 
     def get_size(self) -> int:
-        """
-        Método que devuelve el tamaño de la lista enlazada.
-        Returns:
-            int: El número de nodos en la lista.
-        """
+        """Devuelve el número de nodos almacenados."""
         return self.size
 
-class Queue(Generic[T]):
-    """
-    Clase que representa una cola basada en una lista enlazada doblemente enlazada.
-    Permite la inserción y eliminación de elementos en O(1) estricto en FIFO.
-    """
+    def __len__(self) -> int:
+        return self.size
 
-    def __init__(self):
+    def __iter__(self) -> Iterator[T]:
+        current = self.head
+        while current is not None:
+            yield current.data
+            current = current.next
+
+
+class Queue(Generic[T]):
+    """Cola FIFO respaldada exclusivamente por una lista enlazada manual."""
+
+    def __init__(self) -> None:
         self.items: DoublyLinkedList[T] = DoublyLinkedList()
 
     def is_empty(self) -> bool:
-        """
-        Método que verifica si la cola está vacía.
-        Returns:
-            bool: True si la cola está vacía, False en caso contrario.
-        """
         return self.items.is_empty()
 
     def enqueue(self, item: T) -> None:
-        """
-        Método que agrega un nuevo elemento al final de la cola.
-        Args:
-            item (T): El elemento que se desea agregar.
-        """
+        """Inserta un elemento al final de la cola en tiempo O(1)."""
         self.items.append(item)
 
     def dequeue(self) -> Optional[T]:
-        """
-        Método que elimina y devuelve el primer elemento de la cola.
-        Returns:
-            Optional[T]: El primer elemento de la cola, None si la cola está vacía.
-        """
-        if self.is_empty():
-            return None
-        item = self.items.head.data
-        self.items.delete(item)
-        return item
+        """Retira el elemento más antiguo en tiempo O(1)."""
+        return self.items.pop_front()
 
     def peek(self) -> Optional[T]:
-        """
-        Método que devuelve el primer elemento de la cola sin eliminarlo.
-        Returns:
-            Optional[T]: El primer elemento de la cola, None si la cola está vacía.
-        """
-        if self.is_empty():
+        """Consulta el primer elemento sin retirarlo."""
+        if self.items.head is None:
             return None
         return self.items.head.data
 
+    def delete(self, item: T) -> bool:
+        """Elimina la primera coincidencia de la cola."""
+        return self.items.remove(item)
+
     def size(self) -> int:
-        """
-        Método que devuelve el tamaño de la cola.
-        Returns:
-            int: El número de elementos en la cola.
-        """
         return self.items.get_size()

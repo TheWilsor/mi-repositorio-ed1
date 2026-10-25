@@ -1,0 +1,5 @@
+flet==0.24.1
+pygame-ce==2.5.8
+librosa==1.0.0
+numpy>=1.23.0
+scipy>=1.9.0
