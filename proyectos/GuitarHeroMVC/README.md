@@ -45,17 +45,17 @@ El proyecto está diseñado bajo un estricto desacoplamiento de responsabilidade
 GuitarHeroMVC/
 │
 ├── models/                  # CAPA MODELO (Datos y Estado)
-│   ├── structures.py        # TDAs Manuales (Node, DoublyLinkedList, Queue)
+│   ├── structures.py        # TDAsManuales(Node DoublyLinkedList)
 │   ├── music_library.py     # Gestor de biblioteca de canciones
-│   ├── rhythm_engine.py     # Algoritmos DSP y detección de impactos
-│   └── game_engine.py       # Puntuación, rachas y estado de la partida
+│   ├── rhythm_engine.py     # Algoritmos DSP y detecciónde impact
+│   └── game_engine.py       # Puntuación, rachas y estado del game
 │
 ├── views/                   # CAPA VISTA (Interfaz Gráfica)
 │   └── desktop_view.py      # Interfaz responsiva en Flet (60 FPS)
 │
-├── controllers/             # CAPA CONTROLADOR (Lógica de Orquestación)
-│   ├── app_controller.py    # Controlador principal y gestión de hilos
-│   ├── game_controller.py   # Motor del bucle de juego y colisiones
+├── controllers/             # CONTROLADOR(Lógica de Orquestación)
+│   ├── app_controller.py    # Controlador principal gestión hilos
+│   ├── game_controller.py   # Motor del bucle de juego y colision
 │   └── audio_controller.py  # Controlador del reproductor Pygame
 │
 ├── tests/                   # SUITE DE PRUEBAS UNITARIAS
@@ -64,8 +64,7 @@ GuitarHeroMVC/
 │
 ├── assets/                  # Recursos multimedia (.mp3, imágenes)
 ├── main.py                  # Punto de entrada de la aplicación
-├── requirements.txt           # Dependencias del proyecto
-|
+├── requirements.txt         # Dependencias del proyecto
 └── README.md                # Estructura y funcionalidad
 
 
