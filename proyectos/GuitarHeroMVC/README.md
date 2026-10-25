@@ -43,30 +43,24 @@ Arquitectura del Sistema (MVC)
 El proyecto está diseñado bajo un estricto desacoplamiento de responsabilidades en tres capas fundamentales:
 
 GuitarHeroMVC/
-│
 ├── models/                  # CAPA MODELO (Datos y Estado)
-│   ├── structures.py        # TDAsManuales(Node DoublyLinkedList)
+│   ├── structures.py        # TDAs Manuales (Node, DoublyLinkedList, Queue)
 │   ├── music_library.py     # Gestor de biblioteca de canciones
-│   ├── rhythm_engine.py     # Algoritmos DSP y detecciónde impact
-│   └── game_engine.py       # Puntuación, rachas y estado del game
-│
+│   ├── rhythm_engine.py     # Algoritmos DSP y detección de onsets
+│   └── game_engine.py       # Puntuación, rachas y estado del juego
 ├── views/                   # CAPA VISTA (Interfaz Gráfica)
 │   └── desktop_view.py      # Interfaz responsiva en Flet (60 FPS)
-│
-├── controllers/             # CONTROLADOR(Lógica de Orquestación)
+├── controllers/             # CAPA CONTROLADOR (Lógica de Orquestación)
 │   ├── app_controller.py    # Controlador principal gestión hilos
-│   ├── game_controller.py   # Motor del bucle de juego y colision
+│   ├── game_controller.py   # Motor del bucle de juego y colisión
 │   └── audio_controller.py  # Controlador del reproductor Pygame
-│
 ├── tests/                   # SUITE DE PRUEBAS UNITARIAS
 │   ├── test_structures.py   # Tests de memoria y punteros en TDAs
-│   └── test_gameplay.py     # Tests de colisiones y motor rítmico
-│
+│   └── test_game_flow.py    # Tests de colisiones y motor rítmico
 ├── assets/                  # Recursos multimedia (.mp3, imágenes)
 ├── main.py                  # Punto de entrada de la aplicación
 ├── requirements.txt         # Dependencias del proyecto
 └── README.md                # Estructura y funcionalidad
-
 
 Estructuras de Datos Manuales (TDAs Basados en Punteros)
 
